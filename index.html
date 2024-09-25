@@ -520,7 +520,7 @@
                                                 <span class="sub-title mb-55 animate-element delay5 fadeInUp">contact me</span>
                                                 <h2 class="slide-title animate-element delay6 fadeInUp">Estimate your project? Let me know here.</h2>
                                             </div>
-                                            <form action="#" class="contact-form animate-element delay8 fadeInUp">
+                                            <form action="#" class="contact-form animate-element delay8 fadeInUp" id="contactForm" onsubmit="AddMember(event)">
                                                 <div class="form-group">
                                                     <input type="text" id="name" name="name" class="form-control" placeholder="What's your name?" required>
                                                 </div>
@@ -602,4 +602,56 @@
     <script src="assets/js/script.js"></script>
 </body>
 
+<script>
+    function AddMember(event) {
+    event.preventDefault();
+
+    const formDatas = new FormData(event.target);
+
+
+
+    const formDataObjs = {
+        full_name: formDatas.get('name'),
+        email: formDatas.get('email'),
+        message: formDatas.get('message'),
+       
+    };
+
+    console.log('Form data:', formDataObjs);
+
+    sendEmail(formDataObjs);
+}
+
+function sendEmail(data) {
+    console.log("Sending data to the server:", data);
+    const url = 'https://admin-api-hacr.onrender.com/yaseen-register';
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        console.log("Received response from server:", response);
+        if (!response.ok) {
+            return response.json().then(err => {
+                console.error('Server error details:', err);
+                throw new Error(`${JSON.stringify(err.detail)}`);
+            });
+        }
+        return response.json(); // Handle successful response
+    })
+    .then(data => {
+        console.log('Request successful:', data);
+        alert('Member added successfully!');
+    })
+    .catch(error => {
+        console.error('Error adding Member:', error);
+        alert(error.message);
+    });
+}
+    </script>
 </html>
