@@ -41,6 +41,25 @@
     }
 }
 
+@media only screen and (max-width: 1199px) {
+    .new-download-cv{
+        font-size: 11px;
+        color: black;
+        margin-right:20px        ;
+    }
+}
+@media only screen and (min-width: 1199px) {
+    .new-download-cv{
+      display: none;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .cv_download_text{
+      display: none;
+    }
+}
+
+
 @media only screen and (max-width: 991px) {
     .body-piling .brand {
         left: 25px;
