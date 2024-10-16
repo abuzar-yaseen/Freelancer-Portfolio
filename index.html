@@ -614,21 +614,18 @@
 
     const formDatas = new FormData(event.target);
 
-
-
     const formDataObjs = {
         full_name: formDatas.get('name'),
         email: formDatas.get('email'),
         message: formDatas.get('message'),
-       
     };
 
     console.log('Form data:', formDataObjs);
 
-    sendEmail(formDataObjs);
+    sendEmail(formDataObjs, event.target);
 }
 
-function sendEmail(data) {
+function sendEmail(data, form) {
     console.log("Sending data to the server:", data);
     const url = 'https://admin-api-hacr.onrender.com/yaseen-register';
 
@@ -653,11 +650,13 @@ function sendEmail(data) {
     .then(data => {
         console.log('Request successful:', data);
         alert('Message sent successfully!');
+        form.reset(); // Clear the form fields after success
     })
     .catch(error => {
         console.error('Error adding Member:', error);
         alert(error.message);
     });
 }
+
     </script>
 </html>
